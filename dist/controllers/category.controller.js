@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,20 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCategoryById = exports.updateCategoryById = exports.getCategoryById = exports.getAllCategories = exports.createCategory = void 0;
-var category_model_1 = __importDefault(require("../models/category.model"));
+import Category from '../models/category.model.js';
 // No helper imports in this file to update.
-var createCategory = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var createCategory = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var newCategory, savedCategory, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                newCategory = new category_model_1.default(req.body);
+                newCategory = new Category(req.body);
                 return [4 /*yield*/, newCategory.save()];
             case 1:
                 savedCategory = _a.sent();
@@ -62,14 +56,13 @@ var createCategory = function (req, res) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.createCategory = createCategory;
-var getAllCategories = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var getAllCategories = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var categories, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, category_model_1.default.find({ eliminatedAt: null })];
+                return [4 /*yield*/, Category.find({ eliminatedAt: null })];
             case 1:
                 categories = _a.sent();
                 res.status(200).json(categories);
@@ -82,14 +75,13 @@ var getAllCategories = function (req, res) { return __awaiter(void 0, void 0, vo
         }
     });
 }); };
-exports.getAllCategories = getAllCategories;
-var getCategoryById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var getCategoryById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var category, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, category_model_1.default.findById(req.params.id)];
+                return [4 /*yield*/, Category.findById(req.params.id)];
             case 1:
                 category = _a.sent();
                 if (!category || category.eliminatedAt !== null) {
@@ -105,14 +97,13 @@ var getCategoryById = function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
-exports.getCategoryById = getCategoryById;
-var updateCategoryById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var updateCategoryById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var updatedCategory, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, category_model_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true })];
+                return [4 /*yield*/, Category.findByIdAndUpdate(req.params.id, req.body, { new: true })];
             case 1:
                 updatedCategory = _a.sent();
                 if (!updatedCategory || updatedCategory.eliminatedAt !== null) {
@@ -128,14 +119,13 @@ var updateCategoryById = function (req, res) { return __awaiter(void 0, void 0, 
         }
     });
 }); };
-exports.updateCategoryById = updateCategoryById;
-var deleteCategoryById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var deleteCategoryById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var deletedCategory, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, category_model_1.default.findByIdAndUpdate(req.params.id, { eliminatedAt: new Date() }, { new: true })];
+                return [4 /*yield*/, Category.findByIdAndUpdate(req.params.id, { eliminatedAt: new Date() }, { new: true })];
             case 1:
                 deletedCategory = _a.sent();
                 if (!deletedCategory) {
@@ -151,5 +141,4 @@ var deleteCategoryById = function (req, res) { return __awaiter(void 0, void 0, 
         }
     });
 }); };
-exports.deleteCategoryById = deleteCategoryById;
 //# sourceMappingURL=category.controller.js.map

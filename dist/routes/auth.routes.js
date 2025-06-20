@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var auth_controller_1 = require("../controllers/auth.controller");
-var router = (0, express_1.Router)();
-router.post('/admin', auth_controller_1.validateAdmin);
-exports.default = router;
+import { Router } from 'express';
+import { validateAdmin } from '../controllers/auth.controller.js';
+var router = Router();
+router.post('/admin', validateAdmin);
+export default router;
 //# sourceMappingURL=auth.routes.js.map

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import Admin from '../models/admin.model';
-
+import Admin from '../models/admin.model.js';
+ 
 export const validateAdmin = async (req: Request, res: Response) => {
   const { password } = req.body;
 

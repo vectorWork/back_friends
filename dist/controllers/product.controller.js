@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,20 +34,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProductById = exports.updateProductById = exports.getProductById = exports.getAllProducts = exports.createProduct = void 0;
-var product_model_1 = __importDefault(require("../models/product.model"));
+import Product from '../models/product.model.js';
 // Create a new product
-var createProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var createProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var product, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                product = new product_model_1.default(req.body);
+                product = new Product(req.body);
                 return [4 /*yield*/, product.save()];
             case 1:
                 _a.sent();
@@ -62,15 +56,14 @@ var createProduct = function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
-exports.createProduct = createProduct;
 // Get all products
-var getAllProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var getAllProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var products, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, product_model_1.default.find({ eliminatedAt: null }).populate('categoriaId')];
+                return [4 /*yield*/, Product.find({ eliminatedAt: null }).populate('categoriaId')];
             case 1:
                 products = _a.sent();
                 res.status(200).send(products);
@@ -83,15 +76,14 @@ var getAllProducts = function (req, res) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.getAllProducts = getAllProducts;
 // Get a single product by ID
-var getProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var getProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var product, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, product_model_1.default.findOne({ _id: req.params.id, eliminatedAt: null }).populate('categoriaId')];
+                return [4 /*yield*/, Product.findOne({ _id: req.params.id, eliminatedAt: null }).populate('categoriaId')];
             case 1:
                 product = _a.sent();
                 if (!product) {
@@ -107,9 +99,8 @@ var getProductById = function (req, res) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.getProductById = getProductById;
 // Update a product by ID
-var updateProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var updateProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var updates, allowedUpdates, isValidOperation, product_1, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -123,7 +114,7 @@ var updateProductById = function (req, res) { return __awaiter(void 0, void 0, v
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, product_model_1.default.findOne({ _id: req.params.id, eliminatedAt: null })];
+                return [4 /*yield*/, Product.findOne({ _id: req.params.id, eliminatedAt: null })];
             case 2:
                 product_1 = _a.sent();
                 if (!product_1) {
@@ -143,15 +134,14 @@ var updateProductById = function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); };
-exports.updateProductById = updateProductById;
 // Delete a product by ID (soft delete)
-var deleteProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+export var deleteProductById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var product, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, product_model_1.default.findOne({ _id: req.params.id, eliminatedAt: null })];
+                return [4 /*yield*/, Product.findOne({ _id: req.params.id, eliminatedAt: null })];
             case 1:
                 product = _a.sent();
                 if (!product) {
@@ -171,5 +161,4 @@ var deleteProductById = function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); };
-exports.deleteProductById = deleteProductById;
 //# sourceMappingURL=product.controller.js.map

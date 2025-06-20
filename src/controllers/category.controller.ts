@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Category from '../models/category.model';
+import Category from '../models/category.model.js';
 // No helper imports in this file to update.
 
 export const createCategory = async (req: Request, res: Response) => {
