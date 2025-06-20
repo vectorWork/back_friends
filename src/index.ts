@@ -1,6 +1,7 @@
 import express from 'express';
 import { connectDB } from './helper/mongoose.helper';
 import routes from './routes/index';
+import 'dotenv/config';
 
 const app = express();
 
