@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Category from '../models/category.model.js';
+import Category from '../models/category.model';
 // No helper imports in this file to update.
 
 export const createCategory = async (req: Request, res: Response) => {
@@ -59,7 +59,9 @@ export const deleteCategoryById = async (req: Request, res: Response) => {
     if (!deletedCategory) {
       return res.status(404).json({ message: 'Category not found' });
     }
-    res.status(200).json({ message: 'Category soft deleted', category: deletedCategory });
+    res
+      .status(200)
+      .json({ message: 'Category soft deleted', category: deletedCategory });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

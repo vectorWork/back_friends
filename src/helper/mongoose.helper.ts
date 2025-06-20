@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import './env.helper.js'; // Import env helper to load environment variables
 export const connectDB = async () => {
   try {
     const dbUri = process.env.MONGO_URI;

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import Product from '../models/product.model.js';
-
+import Product from '../models/product.model';
 
 // Create a new product
 export const createProduct = async (req: Request, res: Response) => {
@@ -16,7 +15,9 @@ export const createProduct = async (req: Request, res: Response) => {
 // Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ eliminatedAt: null }).populate('categoriaId');
+    const products = await Product.find({ eliminatedAt: null }).populate(
+      'categoriaId'
+    );
     res.status(200).send(products);
   } catch (error: any) {
     res.status(500).send({ error: error.message });
@@ -26,7 +27,10 @@ export const getAllProducts = async (req: Request, res: Response) => {
 // Get a single product by ID
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    const product = await Product.findOne({ _id: req.params.id, eliminatedAt: null }).populate('categoriaId');
+    const product = await Product.findOne({
+      _id: req.params.id,
+      eliminatedAt: null,
+    }).populate('categoriaId');
     if (!product) {
       return res.status(404).send();
     }
@@ -40,20 +44,25 @@ export const getProductById = async (req: Request, res: Response) => {
 export const updateProductById = async (req: Request, res: Response) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ['nombre', 'categoriaId', 'precio'];
-  const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
 
   if (!isValidOperation) {
     return res.status(400).send({ error: 'Invalid updates!' });
   }
 
   try {
-    const product = await Product.findOne({ _id: req.params.id, eliminatedAt: null });
+    const product = await Product.findOne({
+      _id: req.params.id,
+      eliminatedAt: null,
+    });
 
     if (!product) {
       return res.status(404).send();
     }
 
-    updates.forEach((update) => (product as any)[update] = req.body[update]);
+    updates.forEach((update) => ((product as any)[update] = req.body[update]));
     await product.save();
 
     res.status(200).send(product);
@@ -65,7 +74,10 @@ export const updateProductById = async (req: Request, res: Response) => {
 // Delete a product by ID (soft delete)
 export const deleteProductById = async (req: Request, res: Response) => {
   try {
-    const product = await Product.findOne({ _id: req.params.id, eliminatedAt: null });
+    const product = await Product.findOne({
+      _id: req.params.id,
+      eliminatedAt: null,
+    });
 
     if (!product) {
       return res.status(404).send();
