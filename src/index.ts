@@ -1,6 +1,6 @@
 import express from 'express';
-import { connectDB } from './helper/mongoose.helper.js';
-import routes from './routes/index.js';
+import { connectDB } from './helper/mongoose.helper';
+import routes from './routes/index';
 
 const app = express();
 
