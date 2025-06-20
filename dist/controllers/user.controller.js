@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,8 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var user_model_1 = require("../models/user.model");
+import { User } from '../models/user.model';
 // Create a new user
 var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, error_1;
@@ -44,7 +42,7 @@ var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                user = new user_model_1.User(req.body);
+                user = new User(req.body);
                 return [4 /*yield*/, user.save()];
             case 1:
                 _a.sent();
@@ -65,7 +63,7 @@ var getAllUsers = function (req, res) { return __awaiter(void 0, void 0, void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, user_model_1.User.find({})];
+                return [4 /*yield*/, User.find({})];
             case 1:
                 users = _a.sent();
                 res.status(200).send(users);
@@ -85,7 +83,7 @@ var getUserById = function (req, res) { return __awaiter(void 0, void 0, void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, user_model_1.User.findById(req.params.id)];
+                return [4 /*yield*/, User.findById(req.params.id)];
             case 1:
                 user = _a.sent();
                 if (!user) {
@@ -116,7 +114,7 @@ var updateUserById = function (req, res) { return __awaiter(void 0, void 0, void
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, user_model_1.User.findById(req.params.id)];
+                return [4 /*yield*/, User.findById(req.params.id)];
             case 2:
                 user_1 = _a.sent();
                 if (!user_1) {
@@ -143,7 +141,7 @@ var deleteUserById = function (req, res) { return __awaiter(void 0, void 0, void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, user_model_1.User.findByIdAndDelete(req.params.id)];
+                return [4 /*yield*/, User.findByIdAndDelete(req.params.id)];
             case 1:
                 user = _a.sent();
                 if (!user) {
@@ -159,7 +157,7 @@ var deleteUserById = function (req, res) { return __awaiter(void 0, void 0, void
         }
     });
 }); };
-exports.default = {
+export default {
     createUser: createUser,
     getAllUsers: getAllUsers,
     getUserById: getUserById,

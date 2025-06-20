@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,13 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectDB = void 0;
-var mongoose_1 = __importDefault(require("mongoose"));
-var connectDB = function () { return __awaiter(void 0, void 0, void 0, function () {
+import mongoose from 'mongoose';
+import './env.helper'; // Import env helper to load environment variables
+export var connectDB = function () { return __awaiter(void 0, void 0, void 0, function () {
     var dbUri, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -51,7 +46,7 @@ var connectDB = function () { return __awaiter(void 0, void 0, void 0, function 
                 if (!dbUri) {
                     throw new Error('MONGO_URI is not defined in environment variables');
                 }
-                return [4 /*yield*/, mongoose_1.default.connect(dbUri)];
+                return [4 /*yield*/, mongoose.connect(dbUri)];
             case 1:
                 _a.sent();
                 console.log('MongoDB connected successfully');
@@ -65,5 +60,4 @@ var connectDB = function () { return __awaiter(void 0, void 0, void 0, function 
         }
     });
 }); };
-exports.connectDB = connectDB;
 //# sourceMappingURL=mongoose.helper.js.map

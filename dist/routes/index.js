@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var user_routes_1 = __importDefault(require("./user.routes"));
-var category_routes_1 = __importDefault(require("./category.routes"));
-var product_routes_1 = __importDefault(require("./product.routes"));
-var auth_routes_1 = __importDefault(require("./auth.routes"));
-var router = (0, express_1.Router)();
-router.use('/users', user_routes_1.default);
-router.use('/categories', category_routes_1.default);
-router.use('/products', product_routes_1.default);
-router.use('/auth', auth_routes_1.default);
-exports.default = router;
+import { Router } from 'express';
+import userRoutes from './user.routes.js';
+import categoryRoutes from './category.routes.js';
+import productRoutes from './product.routes.js';
+import authRoutes from './auth.routes.js';
+var router = Router();
+router.use('/users', userRoutes);
+router.use('/categories', categoryRoutes);
+router.use('/products', productRoutes);
+router.use('/auth', authRoutes);
+export default router;
 //# sourceMappingURL=index.js.map

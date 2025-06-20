@@ -1,7 +1,6 @@
 import express from 'express';
-import { connectDB } from './helper/mongoose.helper';
-import routes from './routes/index';
-import 'dotenv/config';
+import { connectDB } from './helper/mongoose.helper.js';
+import routes from './routes/index.js';
 
 const app = express();
 
@@ -9,7 +8,7 @@ app.use(express.json());
 
 connectDB(); // Establish database connection
 
-// Use the main router for all routes
+// Use the main router for version 1 routes
 app.use('/v1', routes);
 
 const port = parseInt(process.env.PORT || '3000');

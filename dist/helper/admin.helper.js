@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,31 +34,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createAdmin = void 0;
-var admin_model_1 = __importDefault(require("../models/admin.model"));
-var bcrypt_1 = __importDefault(require("bcrypt"));
-var createAdmin = function () { return __awaiter(void 0, void 0, void 0, function () {
+import Admin from '../models/admin.model.js';
+import bcrypt from 'bcrypt';
+export var createAdmin = function () { return __awaiter(void 0, void 0, void 0, function () {
     var adminCount, newAdmin, _a, error_1;
     var _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0:
                 _c.trys.push([0, 6, , 7]);
-                return [4 /*yield*/, admin_model_1.default.countDocuments({ name: 'admin' })];
+                return [4 /*yield*/, Admin.countDocuments({ name: 'admin' })];
             case 1:
                 adminCount = _c.sent();
                 if (!(adminCount === 0)) return [3 /*break*/, 4];
-                _a = admin_model_1.default.bind;
+                _a = Admin.bind;
                 _b = {
                     name: 'admin'
                 };
-                return [4 /*yield*/, bcrypt_1.default.hash('12300..A', 10)];
+                return [4 /*yield*/, bcrypt.hash('12300..A', 10)];
             case 2:
-                newAdmin = new (_a.apply(admin_model_1.default, [void 0, (
+                newAdmin = new (_a.apply(Admin, [void 0, (
                     // Hash the password before saving
                     _b.password = _c.sent(),
                         _b)]))();
@@ -80,5 +74,4 @@ var createAdmin = function () { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-exports.createAdmin = createAdmin;
 //# sourceMappingURL=admin.helper.js.map

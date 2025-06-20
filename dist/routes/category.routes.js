@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var category_controller_1 = require("../controllers/category.controller");
-var router = (0, express_1.Router)();
-router.post('/categories', category_controller_1.createCategory);
-router.get('/categories', category_controller_1.getAllCategories);
-router.get('/categories/:id', category_controller_1.getCategoryById);
-router.put('/categories/:id', category_controller_1.updateCategoryById);
-router.delete('/categories/:id', category_controller_1.deleteCategoryById);
-exports.default = router;
+import { Router } from 'express';
+import { createCategory, getAllCategories, getCategoryById, updateCategoryById, deleteCategoryById, } from '../controllers/category.controller.js';
+var router = Router();
+router.post('/categories', createCategory);
+router.get('/categories', getAllCategories);
+router.get('/categories/:id', getCategoryById);
+router.put('/categories/:id', updateCategoryById);
+router.delete('/categories/:id', deleteCategoryById);
+export default router;
 //# sourceMappingURL=category.routes.js.map
