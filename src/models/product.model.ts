@@ -12,8 +12,13 @@ export interface IProduct extends Document {
 const ProductSchema: Schema = new Schema(
   {
     nombre: { type: String, required: true },
-    categoriaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
-    precio: { type: Number, required: true },
+    categoriaId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+      required: true,
+    },
+    precio: { type: Number, required: false },
+    codigo: { type: String, required: true, unique: true },
     eliminatedAt: { type: Date, default: null },
   },
   { timestamps: true }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  createProduct, 
+  createProduct,
   getAllProducts,
   getProductById,
   updateProductById,
@@ -9,10 +9,10 @@ import {
 
 const router = Router();
 
-router.post('/products', createProduct);
-router.get('/products', getAllProducts);
-router.get('/products/:id', getProductById);
-router.put('/products/:id', updateProductById);
-router.delete('/products/:id', deleteProductById);
+router.post('/create', createProduct);
+router.get('/get/:id', getAllProducts);
+router.get('/getById/:id', getProductById);
+router.put('/update/:id', updateProductById);
+router.delete('/delete/:id', deleteProductById);
 
 export default router;

@@ -15,9 +15,11 @@ export const createProduct = async (req: Request, res: Response) => {
 // Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ eliminatedAt: null }).populate(
-      'categoriaId'
-    );
+    let categoriaId = req.params.id;
+    const products = await Product.find({
+      categoriaId,
+      eliminatedAt: null,
+    }).populate('categoriaId');
     res.status(200).send(products);
   } catch (error: any) {
     res.status(500).send({ error: error.message });
