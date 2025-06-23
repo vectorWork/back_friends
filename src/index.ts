@@ -1,5 +1,5 @@
 import express from 'express';
-import { connectDB } from './helper/mongoose.helper';
+import { connectDB } from './helper/mongoose.helper'; // Remove .js
 import routes from './routes/index';
 import 'dotenv/config';
 import './helper/env.helper';
