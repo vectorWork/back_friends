@@ -1,36 +1,57 @@
 import { Request, Response } from 'express';
-import  ProductoComanda,{ IProductoComanda } from '../models/producto_comanda.model';
-import {Comanda} from '../models/comanda.model'; // Import Comanda model
-import mongoose from 'mongoose'; // Import mongoose for aggregation
-import { generateNextCode } from '../helper/comandaCodeGenerator'; // Import the code generator
+import ProductoComanda, {
+  IProductoComanda,
+} from '../models/producto_comanda.model';
+import { Comanda } from '../models/comanda.model';
+import mongoose from 'mongoose';
+import { generateNextCode } from '../helper/comandaCodeGenerator';
+import { log } from 'console';
 
 export const createProductoComandas = async (req: Request, res: Response) => {
   try {
-    const { productIds } = req.body;
+    const { Productos } = req.body;
 
-    if (!productIds || !Array.isArray(productIds) || productIds.length === 0) {
-      return res.status(400).json({ message: 'Invalid request body. productIds (array) is required.' });
-    }
+    // if (!productIds || !Array.isArray(productIds) || productIds.length === 0) {
+    //   return res.status(400).json({
+    //     message: 'Invalid request body. productIds (array) is required.',
+    //   });
+    // }
 
     // Create a new Comanda document
     const nextCode = await generateNextCode();
     const newComanda = await Comanda.create({ codigo: nextCode });
 
-    const productoComandaDocuments: any[] = productIds.map((productId: any) => ({
-      idComanda: newComanda._id, // Use the _id of the newly created comanda
-      idProducto: productId._id,
-    }));
+    // Generar los documentos de ProductoComanda según la cantidad de cada producto
+
+    const productoComandaDocuments: any[] = [];
+    Productos.forEach((product: any) => {
+      const cantidad = product.Cantidad || 1;
+      for (let i = 0; i < cantidad; i++) {
+        productoComandaDocuments.push({
+          idComanda: newComanda._id,
+          idProducto: product._id,
+        });
+      }
+    });
 
     await ProductoComanda.insertMany(productoComandaDocuments);
 
-    res.status(201).json({ message: 'Comanda and ProductoComanda documents created successfully', comanda: newComanda });
+    res.status(201).json({
+      message: 'Comanda and ProductoComanda documents created successfully',
+      comanda: newComanda,
+    });
   } catch (error) {
     console.error('Error creating ProductoComanda documents:', error);
-    res.status(500).json({ message: 'Error creating ProductoComanda documents', error });
+    res
+      .status(500)
+      .json({ message: 'Error creating ProductoComanda documents', error });
   }
 };
 
-export const getProductoComandasByComandaId = async (req: Request, res: Response) => {
+export const getProductoComandasByComandaId = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { comandaId } = req.params;
 
@@ -83,12 +104,16 @@ export const getProductoComandasByComandaId = async (req: Request, res: Response
     ]);
 
     if (!result || result.length === 0) {
-      return res.status(404).json({ message: 'No ProductoComandas found for this Comanda ID' });
+      return res
+        .status(404)
+        .json({ message: 'No ProductoComandas found for this Comanda ID' });
     }
 
     res.status(200).json(result);
   } catch (error) {
     console.error('Error getting ProductoComandas by Comanda ID:', error);
-    res.status(500).json({ message: 'Error getting ProductoComandas by Comanda ID', error });
+    res
+      .status(500)
+      .json({ message: 'Error getting ProductoComandas by Comanda ID', error });
   }
 };
