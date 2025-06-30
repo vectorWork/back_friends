@@ -9,6 +9,7 @@ export const DefaultData = {
   categories: [
     {
       name: 'AVES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000192',
@@ -86,6 +87,7 @@ export const DefaultData = {
     },
     {
       name: 'BEBIDAS',
+      impresora: 'BARRA',
       products: [
         {
           codigo: '000215',
@@ -223,6 +225,7 @@ export const DefaultData = {
     },
     {
       name: 'CAFÉ & TE',
+      impresora: 'BARRA',
       products: [
         {
           codigo: '000024',
@@ -248,6 +251,7 @@ export const DefaultData = {
     },
     {
       name: 'CARNES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000048',
@@ -341,6 +345,7 @@ export const DefaultData = {
     },
     {
       name: 'CERVEZAS',
+      impresora: 'BARRA',
       products: [
         {
           codigo: '000033',
@@ -406,6 +411,7 @@ export const DefaultData = {
     },
     {
       name: 'CONTORNO',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000051',
@@ -423,6 +429,7 @@ export const DefaultData = {
     },
     {
       name: 'DESAYUNOS',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000057',
@@ -460,6 +467,7 @@ export const DefaultData = {
     },
     {
       name: 'DESCORCHES',
+      impresora: 'BARRA',
       products: [
         {
           codigo: '000059',
@@ -473,14 +481,11 @@ export const DefaultData = {
           codigo: '000376',
           nombre: 'DESCORCHE LICOR *',
         },
-        {
-          codigo: '000377',
-          nombre: '1/2 DESCORCHE LICOR',
-        },
       ],
     },
     {
       name: 'ENSALADAS',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000062',
@@ -502,6 +507,7 @@ export const DefaultData = {
     },
     {
       name: 'ENTRADAS',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000368',
@@ -523,6 +529,7 @@ export const DefaultData = {
     },
     {
       name: 'ENVASES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000064',
@@ -544,6 +551,7 @@ export const DefaultData = {
     },
     {
       name: 'HAMBURGUESAS & SANDWICHES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000043',
@@ -589,6 +597,7 @@ export const DefaultData = {
     },
     {
       name: 'JUGOS NATURALES',
+      impresora: 'BARRA',
       products: [
         {
           codigo: '000015',
@@ -634,6 +643,7 @@ export const DefaultData = {
     },
     {
       name: 'LICORES',
+      impresora: 'BARRA',
       products: [
         {
           codigo: '000271',
@@ -643,6 +653,7 @@ export const DefaultData = {
     },
     {
       name: 'MENÙ',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000273',
@@ -656,6 +667,7 @@ export const DefaultData = {
     },
     {
       name: 'MENU EJECUTIVO',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000068',
@@ -689,6 +701,7 @@ export const DefaultData = {
     },
     {
       name: 'PASTAS',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000110',
@@ -738,6 +751,7 @@ export const DefaultData = {
     },
     {
       name: 'PESCADOS Y MARISCOS',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000053',
@@ -779,6 +793,7 @@ export const DefaultData = {
     },
     {
       name: 'PIZZAS',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000160',
@@ -916,6 +931,7 @@ export const DefaultData = {
     },
     {
       name: 'POSTRES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000346',
@@ -941,6 +957,7 @@ export const DefaultData = {
     },
     {
       name: 'PROMOCIONES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000330',
@@ -1018,6 +1035,7 @@ export const DefaultData = {
     },
     {
       name: 'RACIONES',
+      impresora: 'COCINA',
       products: [
         {
           codigo: '000204',
@@ -1083,6 +1101,7 @@ export const DefaultData = {
     },
     {
       name: 'SOPAS',
+      impresora: 'COCINA',
       products: [
         { codigo: '000091', nombre: 'MEDIA SOPA DEL DIA' },
         { codigo: '000236', nombre: 'SOPA DEL DIA' },
@@ -1090,6 +1109,7 @@ export const DefaultData = {
     },
     {
       name: 'TRAGOS',
+      impresora: 'BARRA',
       products: [
         { codigo: '000050', nombre: 'COCTEL DE LA CASA' },
         { codigo: '000097', nombre: 'MOJITO' },
@@ -1101,6 +1121,7 @@ export const DefaultData = {
     },
     {
       name: 'TRAGOS WHISKY',
+      impresora: 'BARRA',
       products: [
         { codigo: '000260', nombre: 'TRAGO WHISKY 8 ANOS' },
         { codigo: '000259', nombre: 'TRAGO WHISKY 12 ANOS' },
@@ -1108,6 +1129,7 @@ export const DefaultData = {
     },
     {
       name: 'VINOS',
+      impresora: 'BARRA',
       products: [
         { codigo: '000052', nombre: 'COPA VINO DE LA CASA' },
         { codigo: '000279', nombre: 'SANGRIA/CAROREÑA' },
@@ -1121,6 +1143,7 @@ export const DefaultData = {
     },
     {
       name: 'VINOS BLANCO',
+      impresora: 'BARRA',
       products: [
         { codigo: '000265', nombre: 'VINO SANGRIA/TINTO' },
         { codigo: '000262', nombre: 'VINO DE LA CASA BOTELLA' },
@@ -1130,6 +1153,7 @@ export const DefaultData = {
     },
     {
       name: 'VODKA',
+      impresora: 'BARRA',
       products: [
         { codigo: '000226', nombre: 'SERV LICOR PREMIUM' },
         { codigo: '000225', nombre: 'SERV LICOR ESPECIAL' },
@@ -1137,6 +1161,7 @@ export const DefaultData = {
     },
     {
       name: 'WHISKY',
+      impresora: 'BARRA',
       products: [
         { codigo: '000229', nombre: 'SERV WHISKY 8 ANOS' },
         { codigo: '000228', nombre: 'SERV WHISKY 12 ANOS' },

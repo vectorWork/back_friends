@@ -7,9 +7,13 @@ export interface ICategory extends Document {
   eliminatedAt?: Date;
 }
 
-const CategorySchema: Schema = new Schema({
-  nombre: { type: String, required: true },
-  eliminatedAt: { type: Date, default: null }
-}, { timestamps: true });
+const CategorySchema: Schema = new Schema(
+  {
+    nombre: { type: String, required: true },
+    impresora: { type: String, required: true },
+    eliminatedAt: { type: Date, default: null },
+  },
+  { timestamps: true }
+);
 
 export default mongoose.model<ICategory>('Category', CategorySchema);

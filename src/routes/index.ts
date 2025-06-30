@@ -7,7 +7,7 @@ import ProductoComandaRoutes from './productoComanda.routes';
 import ComandaRoutes from './comanda.routes';
 const router = Router();
 
-router.use('/users', userRoutes);
+router.use('/meseros', userRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/products', productRoutes);
 router.use('/auth', authRoutes);

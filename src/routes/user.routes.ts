@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import userController from '../controllers/user.controller';
+import userController from '../controllers/mesero.controller';
 
 const router = Router();
 
-router.post('/', userController.createUser);
-router.get('/', userController.getAllUsers);
+router.post('/create', userController.createUser);
+router.get('/getAll', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
-router.put('/:id', userController.updateUserById);
-router.delete('/:id', userController.deleteUserById);
+router.put('/update/:id', userController.updateUserById);
+router.delete('/delete/:id', userController.deleteUserById);
 
 export default router;

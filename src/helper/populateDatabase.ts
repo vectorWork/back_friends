@@ -19,7 +19,10 @@ export async function populateDatabaseFromJSON() {
           });
 
           if (!category) {
-            category = await Category.create({ nombre: categoryData.name });
+            category = await Category.create({
+              nombre: categoryData.name,
+              impresora: categoryData.impresora,
+            });
             console.log(`Created category: ${categoryData.name}`);
           }
 

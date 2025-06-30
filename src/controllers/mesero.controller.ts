@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import {User} from '../models/user.model';
+import Mesero from '../models/mesero.model';
 
 // Create a new user
 const createUser = async (req: Request, res: Response) => {
   try {
-    const user = new User(req.body);
+    const user = new Mesero(req.body);
     await user.save();
     res.status(201).send(user);
   } catch (error) {
@@ -15,7 +15,7 @@ const createUser = async (req: Request, res: Response) => {
 // Get all users
 const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const users = await User.find({});
+    const users = await Mesero.find({});
     res.status(200).send(users);
   } catch (error) {
     res.status(500).send(error);
@@ -25,7 +25,7 @@ const getAllUsers = async (req: Request, res: Response) => {
 // Get a single user by ID
 const getUserById = async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await Mesero.findById(req.params.id);
     if (!user) {
       return res.status(404).send();
     }
@@ -38,22 +38,19 @@ const getUserById = async (req: Request, res: Response) => {
 // Update a user by ID
 const updateUserById = async (req: Request, res: Response) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ['name', 'email', 'age'];
-  const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
-
-  if (!isValidOperation) {
-    return res.status(400).send({ error: 'Invalid updates!' });
-  }
 
   try {
-    const user = await User.findById(req.params.id);
+    const user = await Mesero.findById(req.params.id);
 
     if (!user) {
       return res.status(404).send();
     }
 
-    updates.forEach((update) => (user[update] = req.body[update]));
-    await user.save();
+    const updatedMesero = await Mesero.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
     res.status(200).send(user);
   } catch (error) {
     res.status(400).send(error);
@@ -63,7 +60,7 @@ const updateUserById = async (req: Request, res: Response) => {
 // Delete a user by ID
 const deleteUserById = async (req: Request, res: Response) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await Mesero.findByIdAndDelete(req.params.id);
 
     if (!user) {
       return res.status(404).send();
