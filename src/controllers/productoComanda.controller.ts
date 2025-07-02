@@ -55,6 +55,11 @@ export const createProductoComandas = async (req: Request, res: Response) => {
 
       await ProductoComanda.insertMany(productoBarraComandaDocuments);
     }
+    console.log({
+      message: 'Comanda and ProductoComanda documents created successfully',
+      newComandaBarra,
+      newComandaCocina,
+    });
 
     res.status(201).json({
       message: 'Comanda and ProductoComanda documents created successfully',
