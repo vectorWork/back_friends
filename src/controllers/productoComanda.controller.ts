@@ -1,16 +1,15 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 import ProductoComanda, {
   IProductoComanda,
-} from '../models/producto_comanda.model';
-import { Comanda } from '../models/comanda.model';
-import mongoose from 'mongoose';
-import { generateNextCode } from '../helper/comandaCodeGenerator';
-import { log } from 'console';
+} from "../models/producto_comanda.model";
+import { Comanda } from "../models/comanda.model";
+import mongoose from "mongoose";
+import { generateNextCode } from "../helper/comandaCodeGenerator";
+import { log } from "console";
 
 export const createProductoComandas = async (req: Request, res: Response) => {
   try {
     const { ProductosCocina, ProductosBarra } = req.body;
-    console.log(req.body);
     const productoBarraComandaDocuments: any[] = [];
     const productoCocinaComandaDocuments: any[] = [];
     let newComandaCocina;
@@ -55,22 +54,17 @@ export const createProductoComandas = async (req: Request, res: Response) => {
 
       await ProductoComanda.insertMany(productoBarraComandaDocuments);
     }
-    console.log({
-      message: 'Comanda and ProductoComanda documents created successfully',
-      newComandaBarra,
-      newComandaCocina,
-    });
 
     res.status(201).json({
-      message: 'Comanda and ProductoComanda documents created successfully',
+      message: "Comanda and ProductoComanda documents created successfully",
       newComandaBarra,
       newComandaCocina,
     });
   } catch (error) {
-    console.error('Error creating ProductoComanda documents:', error);
+    console.error("Error creating ProductoComanda documents:", error);
     res
       .status(500)
-      .json({ message: 'Error creating ProductoComanda documents', error });
+      .json({ message: "Error creating ProductoComanda documents", error });
   }
 };
 
@@ -82,7 +76,7 @@ export const getProductoComandasByComandaId = async (
     const { comandaId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(comandaId)) {
-      return res.status(400).json({ message: 'Invalid Comanda ID' });
+      return res.status(400).json({ message: "Invalid Comanda ID" });
     }
 
     const result = await ProductoComanda.aggregate([
@@ -93,31 +87,31 @@ export const getProductoComandasByComandaId = async (
       },
       {
         $lookup: {
-          from: 'comandas', // The name of the comanda collection
-          localField: 'idComanda',
-          foreignField: '_id',
-          as: 'comandaDetails',
+          from: "comandas", // The name of the comanda collection
+          localField: "idComanda",
+          foreignField: "_id",
+          as: "comandaDetails",
         },
       },
       {
-        $unwind: '$comandaDetails',
+        $unwind: "$comandaDetails",
       },
       {
         $lookup: {
-          from: 'products', // The name of the product collection
-          localField: 'idProducto',
-          foreignField: '_id',
-          as: 'productDetails',
+          from: "products", // The name of the product collection
+          localField: "idProducto",
+          foreignField: "_id",
+          as: "productDetails",
         },
       },
       {
-        $unwind: '$productDetails',
+        $unwind: "$productDetails",
       },
       {
         $group: {
-          _id: '$idComanda',
-          comanda: { $first: '$comandaDetails.codigo' },
-          productos: { $push: '$productDetails' },
+          _id: "$idComanda",
+          comanda: { $first: "$comandaDetails.codigo" },
+          productos: { $push: "$productDetails" },
         },
       },
       {
@@ -132,14 +126,116 @@ export const getProductoComandasByComandaId = async (
     if (!result || result.length === 0) {
       return res
         .status(404)
-        .json({ message: 'No ProductoComandas found for this Comanda ID' });
+        .json({ message: "No ProductoComandas found for this Comanda ID" });
     }
 
     res.status(200).json(result);
   } catch (error) {
-    console.error('Error getting ProductoComandas by Comanda ID:', error);
+    console.error("Error getting ProductoComandas by Comanda ID:", error);
     res
       .status(500)
-      .json({ message: 'Error getting ProductoComandas by Comanda ID', error });
+      .json({ message: "Error getting ProductoComandas by Comanda ID", error });
+  }
+};
+
+export const getProductoComandasByDate = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { fecha } = req.body;
+    if (!fecha) {
+      return res.status(400).json({ message: "Date is required in body" });
+    }
+
+    // Asegura que la fecha sea interpretada correctamente a las 6am local
+    const [year, month, day] = fecha.split("-").map(Number);
+    const startDate = new Date(year, month - 1, day, 6, 0, 0, 0);
+
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 1);
+    endDate.setHours(6, 0, 0, 0);
+
+    // Find comandas in the date range
+    const comandas = await Comanda.find({
+      createdAt: { $gte: startDate, $lt: endDate },
+    });
+
+    if (!comandas.length) {
+      return res.status(404).json({
+        message: "No comandas found in the specified date range",
+        fecha_inicio: startDate,
+        fecha_final: endDate,
+      });
+    }
+
+    // Get all ProductoComanda for those comandas
+    const comandaIds = comandas.map((c) => c._id);
+
+    const productoComandas = await ProductoComanda.aggregate([
+      {
+        $match: {
+          idComanda: { $in: comandaIds },
+        },
+      },
+      {
+        $lookup: {
+          from: "comandas",
+          localField: "idComanda",
+          foreignField: "_id",
+          as: "comandaDetails",
+        },
+      },
+      { $unwind: "$comandaDetails" },
+      {
+        $lookup: {
+          from: "products",
+          localField: "idProducto",
+          foreignField: "_id",
+          as: "productDetails",
+        },
+      },
+      { $unwind: "$productDetails" },
+      {
+        $group: {
+          _id: "$idComanda",
+          comanda: { $first: "$comandaDetails.codigo" },
+          productos: {
+            $push: {
+              _id: "$productDetails._id",
+              codigo: "$productDetails.codigo",
+              nombre: "$productDetails.nombre",
+              // Agrega aquí otros campos que quieras mostrar del producto
+            },
+          },
+          createdAt: { $first: "$comandaDetails.createdAt" }, // <-- Añadido para ordenar
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          comanda: 1,
+          productos: 1,
+          createdAt: 1, // <-- Añadido para ordenar
+        },
+      },
+      {
+        $sort: {
+          createdAt: 1, // Ordenar por fecha de creación ascendente
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      fecha_inicio: startDate,
+      fecha_final: endDate,
+      comandas: productoComandas,
+    });
+  } catch (error) {
+    console.error("Error getting ProductoComandas by date:", error);
+    res.status(500).json({
+      message: "Error getting ProductoComandas by date",
+      error,
+    });
   }
 };

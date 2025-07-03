@@ -1,10 +1,15 @@
-import express from 'express';
-import { createProductoComandas, getProductoComandasByComandaId } from '../controllers/productoComanda.controller';
+import express from "express";
+import {
+  createProductoComandas,
+  getProductoComandasByComandaId,
+  getProductoComandasByDate,
+} from "../controllers/productoComanda.controller";
 
 const router = express.Router();
 
-router.post('/create', createProductoComandas);
+router.post("/create", createProductoComandas);
 
-router.get('/comanda/:comandaId', getProductoComandasByComandaId);
+router.get("/comanda/:comandaId", getProductoComandasByComandaId);
+router.put("/date", getProductoComandasByDate);
 
 export default router;
